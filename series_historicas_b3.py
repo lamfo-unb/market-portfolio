@@ -1,4 +1,4 @@
-# import pandas as pd
+import pandas as pd
 from typing import Generator
 
 
@@ -30,7 +30,24 @@ class CamposHistoricoB3:
         return dict(zip(self.nomes_campos, campos))
 
 
+class CriarDataFrame:
+
+    def __init__(self):
+        self.data = {'tipreg': [], 'data_pregao': [], 'codbdi': [], 'codneg': [], 'tpmerc': [], 'nomres': [],
+                     'especi': [], 'prazot': [], 'modref': [], 'preabe': [], 'premin': [], 'premed': [], 'preult': [],
+                     'preofc': [], 'preofc': [], 'preofv': [], 'totneg': [], 'quatot': [], 'voltot': [], 'preexe': [],
+                     'indopc': [], 'datven': [], 'fatcot': [], 'ptoexe': [], 'codisi': [], 'dismes': []}
+
+    def criar_colunas(self, campos: dict) -> None:
+        for nome, valor in campos.items():
+            self.data[nome].append(valor)
+
+    def gerar_data_frame(self) -> pd.DataFrame:
+        return pd.DataFrame(self.data)
+
+
 if __name__ == '__main__':
+    # import pandas as pd
     path_in = 'dados/COTAHIST_A2020/COTAHIST_A2020.TXT'
     lines = gerar_linhas(path_in)
     next(lines)
@@ -41,3 +58,11 @@ if __name__ == '__main__':
     line_first = campos.get_campos(line01)
     line_second = campos.get_campos(line02)
     print(line_second)
+
+    criar_data = CriarDataFrame()
+
+    for _ in range(100):
+        line_ = next(lines)
+        campos_ = campos.get_campos(line_)
+        criar_data.criar_colunas(campos_)
+    data = criar_data.gerar_data_frame()
