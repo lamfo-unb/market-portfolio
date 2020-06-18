@@ -12,6 +12,9 @@ class CamposHistoricoB3:
         self.posicao_inicial = 0
         self.tamanho_campos = [2, 8, 2, 12, 3, 12, 10, 3, 4, 13, 13, 13,
                                13, 13, 13, 13, 5, 18, 18, 13, 1, 8, 7, 13, 12, 3]
+        self.nomes_campos = ['tipreg', 'data_pregao', 'codbdi', 'codneg', 'tpmerc', 'nomres', 'especi', 'prazot',
+                             'modref', 'preabe', 'premin', 'premed', 'preult', 'preofc', 'preofc', 'preofv', 'totneg',
+                             'quatot', 'voltot', 'preexe', 'indopc', 'datven', 'fatcot', 'ptoexe', 'codisi', 'dismes']
 
     def split(self, linha: str, tamanho_campo: int) -> str:
         posicao_inicial = self.posicao_inicial
@@ -20,11 +23,11 @@ class CamposHistoricoB3:
         self.posicao_inicial = posicao_final
         return campo
 
-    def get_campos(self, linha: str) -> list:
+    def get_campos(self, linha: str) -> dict:
         campos = [self.split(linha=linha, tamanho_campo=tamanho)
                   for tamanho in self.tamanho_campos]
         self.posicao_inicial = 0
-        return campos
+        return dict(zip(self.nomes_campos, campos))
 
 
 if __name__ == '__main__':
