@@ -38,3 +38,4 @@ if __name__ == "__main__":
     dados = pd.read_fwf(path, skiprows=pular_linhas, widths=largura_colunas, header=None, dtype=str)
     dados.columns = colunas
     header = dados.head(100)
+    dados.to_csv('dados/cotacoes-historicas-2020.csv', sep=';', decimal=',', index=False, encoding='cp1252')
